@@ -1,0 +1,78 @@
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { selectLocationFilter, selectBodyTypeFilter, selectFeatures } from './filtersSlice'
+import { fetchAll } from './catalogOps'
+
+const handlePending = (state) => {
+  state.loading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+};
+
+const catalogSlice = createSlice({
+  name: 'catalog',
+  initialState: {
+    items: JSON.parse(localStorage.getItem('catalog'))?.items || [],
+    loading: false,
+    error: null,
+    selectedCamperId: null,
+  },
+  reducers: {
+    changeSelectedCamperId(state, action) {
+      return {
+        ...state,
+        selectedCamperId: action.payload,
+      };
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+    .addCase(fetchAll.pending, handlePending)
+    .addCase(fetchAll.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.items = action.payload;
+    })
+    .addCase(fetchAll.rejected, handleRejected)
+  }
+});
+
+export const catalogReducer = catalogSlice.reducer;
+
+// Selectors
+
+export const selectCatalog = (state) => state.catalog.items;
+
+export const selectLoading = (state) => state.catalog.loading;
+
+export const selectError = (state) => state.catalog.error;
+
+export const selectCapmerId = (state) => state.catalog.selectedCamperId;
+
+
+
+export const selectFilteredCatalog = createSelector(
+  [selectCatalog, selectLocationFilter, selectBodyTypeFilter, selectFeatures],
+  (catalog, locationFilter, bodyTypeFilter, featuresFilter) =>
+    catalog.filter(camper =>
+      camper.location.toLowerCase().includes(locationFilter.toLowerCase())
+      && camper.form.includes(bodyTypeFilter)
+      && Object.entries(featuresFilter).every(([key, value]) => {
+        if(key === 'automatic') {
+          return (value && camper.transmission === "automatic") || (!value && camper.transmission !== "automatic")
+        } else {
+          value === camper[key]
+        }
+      })
+    )
+);
+
+export const selectCatalogItem = createSelector(
+  [selectCatalog, selectCapmerId],
+  (catalog, id) =>
+    catalog.find(camper =>
+      camper.id === id
+    )
+);
