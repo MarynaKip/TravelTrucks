@@ -63,7 +63,7 @@ export const selectFilteredCatalog = createSelector(
         if(key === 'automatic') {
           return (value && camper.transmission === "automatic") || (!value && camper.transmission !== "automatic")
         } else {
-          value === camper[key]
+          return value ? value === camper[key] : true
         }
       })
     )

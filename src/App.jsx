@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Navigation from './components/Navigation';
+import { fetchCampers } from './redux/campersOps'
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const CatalogPage = lazy(() => import('./pages/CatalogPage'));
@@ -11,6 +14,13 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCampers());
+  }, [dispatch]);
+
+
   return (
     <>
       <Navigation />
