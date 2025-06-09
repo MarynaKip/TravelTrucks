@@ -1,6 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { selectLocationFilter, selectBodyTypeFilter, selectFeatures } from './filtersSlice'
-import { fetchAll } from './catalogOps'
+import { fetchAll } from './campersOps'
 
 const handlePending = (state) => {
   state.loading = true;
@@ -17,7 +17,7 @@ const catalogSlice = createSlice({
     items: JSON.parse(localStorage.getItem('catalog'))?.items || [],
     loading: false,
     error: null,
-    selectedCamperId: null,
+    selectedCamperId: 1,
   },
   reducers: {
     changeSelectedCamperId(state, action) {
@@ -33,11 +33,13 @@ const catalogSlice = createSlice({
     .addCase(fetchAll.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.items = action.payload;
+      state.items = action.payload.items;
     })
     .addCase(fetchAll.rejected, handleRejected)
   }
 });
+
+export const { changeSelectedCamperId } = catalogSlice.actions;
 
 export const catalogReducer = catalogSlice.reducer;
 
@@ -56,7 +58,7 @@ export const selectCapmerId = (state) => state.catalog.selectedCamperId;
 export const selectFilteredCatalog = createSelector(
   [selectCatalog, selectLocationFilter, selectBodyTypeFilter, selectFeatures],
   (catalog, locationFilter, bodyTypeFilter, featuresFilter) =>
-    catalog.filter(camper =>
+    catalog ?? catalog.filter(camper =>
       camper.location.toLowerCase().includes(locationFilter.toLowerCase())
       && camper.form.includes(bodyTypeFilter)
       && Object.entries(featuresFilter).every(([key, value]) => {
@@ -71,8 +73,7 @@ export const selectFilteredCatalog = createSelector(
 
 export const selectCatalogItem = createSelector(
   [selectCatalog, selectCapmerId],
-  (catalog, id) =>
-    catalog.find(camper =>
-      camper.id === id
-    )
+  (catalog, id) => {
+    return catalog.find(camper => camper.id === String(id)) || null;
+  }
 );

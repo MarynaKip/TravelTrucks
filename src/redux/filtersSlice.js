@@ -7,10 +7,12 @@ const filtersSlice = createSlice({
     location: '',
     features: {
       'AC': false,
-      'kitchen': false,
-      'bathroom': false,
+      'Kitchen': false,
+      'Bathroom': false,
       'TV': false,
-      'automatic': false
+      'Van': false,
+      'Fully Integrated': false,
+      'Alcove': false
     }
   },
   reducers: {
@@ -27,16 +29,10 @@ const filtersSlice = createSlice({
       }
     },
     addFeature(state, action) {
-      return {
-        ...state,
-        features: [...state.features, action.payload],
-      };
+      state.features[action.payload] = true;
     },
     removeFeature(state, action) {
-      return {
-        ...state,
-        features: state.filter(item => item !== action.payload)
-      };
+      state.features[action.payload] = false;
     },
   },
 });

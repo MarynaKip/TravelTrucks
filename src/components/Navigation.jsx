@@ -1,27 +1,24 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Navigation.module.css';
+import { Box } from '@mui/material';
+
+const getNavLinkStyles = (isActive) => ({
+  textDecoration: 'none',
+  fontFamily: 'Inter',
+  fontSize: '16px',
+  lineHeight: '24px',
+  fontWeight: 400,
+  color: isActive ? '#D84343' : '#101828',
+});
 
 export default function Navigation() {
   return (
-    <nav className={styles.navbar}>
-      <ul className={styles.navList}>
-        <li className={styles.navItem}>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'active' : undefined)}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li className={styles.navItem}>
-          <NavLink
-            to="/catalog"
-            className={({ isActive }) => (isActive ? 'active' : undefined)}
-          >
-            Catalog
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
+    <Box sx={{ display: 'flex', gap: '10px' }}>
+      <NavLink to="/" style={({ isActive }) => getNavLinkStyles(isActive)}>
+        Home
+      </NavLink>
+      <NavLink to="/catalog" style={({ isActive }) => getNavLinkStyles(isActive)}>
+        Catalog
+      </NavLink>
+    </Box>
   );
 }
