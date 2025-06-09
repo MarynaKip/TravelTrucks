@@ -14,7 +14,6 @@ const CamperCard = ({ camper }) => {
         description, gallery, transmission, engine, kitchen, AC
     } = camper;
 
-console.log(gallery)
     const handleCamperClick = (id) => {
     dispatch(changeSelectedCamperId(id));
     navigate(`/catalog/${id}`);

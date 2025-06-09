@@ -5,7 +5,6 @@ import {
   
   const ReviewItem = ({ review }) => {
 
-    console.log('in review')
     const { reviewer_name, reviewer_rating, comment } = review;
 
     const stars = Array.from({ length: 5 }).map((_, i) =>
