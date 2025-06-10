@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { fetchAll } from './redux/campersOps'
+import {refreshFilteredItemsList} from './redux/catalogSlice'
 import { Header } from './components/Header';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -18,6 +19,7 @@ export default function App() {
 
   useEffect(() => {
     dispatch(fetchAll());
+    dispatch(refreshFilteredItemsList());
   }, [dispatch]);
 
 

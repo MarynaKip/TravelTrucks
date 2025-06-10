@@ -1,8 +1,16 @@
-import { Box, Typography, Button, Divider } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import LocationInput from './LocationInput';
 import FilterSection from './FilterSection';
+import { useDispatch, useSelector } from 'react-redux';
+import {selectAllFilters} from '../../redux/filtersSlice';
+import {changeFilteredItemsList} from '../../redux/catalogSlice'
 
 const FiltersPanel = () => {
+  const dispatch = useDispatch()
+  const filters = useSelector(selectAllFilters);
+  const handleApplyFilters = () => {
+      dispatch(changeFilteredItemsList(filters));
+  };
   return (
     <Box sx={{ width: 360 }}>
       <LocationInput />
@@ -15,7 +23,7 @@ const FiltersPanel = () => {
       <Button variant="contained" sx={{
         mt: 4, width: 166, height: 56, borderRadius: '200px', fontSize: 16,
         bgcolor: '#E44848', '&:hover': { bgcolor: '#D84343' }
-      }}>
+      }} onClick={() => handleApplyFilters()}>
         Search
       </Button>
     </Box>

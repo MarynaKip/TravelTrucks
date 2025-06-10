@@ -1,5 +1,5 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { selectLocationFilter, selectBodyTypeFilter, selectFeatures } from './filtersSlice'
+// import { selectLocationFilter, selectBodyTypeFilter, selectFeatures } from './filtersSlice'
 import { fetchAll } from './campersOps'
 
 const handlePending = (state) => {
@@ -14,7 +14,8 @@ const handleRejected = (state, action) => {
 const catalogSlice = createSlice({
   name: 'catalog',
   initialState: {
-    items: JSON.parse(localStorage.getItem('catalog'))?.items || [],
+    items: [],
+    filteredItems: [],
     loading: false,
     error: null,
     selectedCamperId: 1,
@@ -24,6 +25,29 @@ const catalogSlice = createSlice({
       return {
         ...state,
         selectedCamperId: action.payload,
+      };
+    },
+    refreshFilteredItemsList(state) {
+      return {
+        ...state,
+        filteredItems: state.items
+      }
+    },
+    changeFilteredItemsList(state, action) {
+      const { location, bodyType, features} = action.payload
+      return {
+        ...state,
+        filteredItems: state.items ?? state.items.filter(camper =>
+          camper.location.toLowerCase().includes(location.toLowerCase())
+          && camper.form.includes(bodyType)
+          && Object.entries(features).every(([key, value]) => {
+            if(key === 'automatic') {
+              return (value && camper.transmission === "automatic") || (!value && camper.transmission !== "automatic")
+            } else {
+              return value ? value === camper[key] : true
+            }
+          })
+        ),
       };
     },
   },
@@ -39,13 +63,15 @@ const catalogSlice = createSlice({
   }
 });
 
-export const { changeSelectedCamperId } = catalogSlice.actions;
+export const { changeSelectedCamperId, refreshFilteredItemsList, changeFilteredItemsList } = catalogSlice.actions;
 
 export const catalogReducer = catalogSlice.reducer;
 
 // Selectors
 
 export const selectCatalog = (state) => state.catalog.items;
+
+export const selectFilteredCatalog = (state) => state.catalog.filteredItems;
 
 export const selectLoading = (state) => state.catalog.loading;
 
@@ -55,21 +81,21 @@ export const selectCapmerId = (state) => state.catalog.selectedCamperId;
 
 
 
-export const selectFilteredCatalog = createSelector(
-  [selectCatalog, selectLocationFilter, selectBodyTypeFilter, selectFeatures],
-  (catalog, locationFilter, bodyTypeFilter, featuresFilter) =>
-    catalog ?? catalog.filter(camper =>
-      camper.location.toLowerCase().includes(locationFilter.toLowerCase())
-      && camper.form.includes(bodyTypeFilter)
-      && Object.entries(featuresFilter).every(([key, value]) => {
-        if(key === 'automatic') {
-          return (value && camper.transmission === "automatic") || (!value && camper.transmission !== "automatic")
-        } else {
-          return value ? value === camper[key] : true
-        }
-      })
-    )
-);
+// export const selectFilteredCatalog = createSelector(
+//   [selectCatalog, selectLocationFilter, selectBodyTypeFilter, selectFeatures],
+//   (catalog, locationFilter, bodyTypeFilter, featuresFilter) =>
+//     catalog ?? catalog.filter(camper =>
+//       camper.location.toLowerCase().includes(locationFilter.toLowerCase())
+//       && camper.form.includes(bodyTypeFilter)
+//       && Object.entries(featuresFilter).every(([key, value]) => {
+//         if(key === 'automatic') {
+//           return (value && camper.transmission === "automatic") || (!value && camper.transmission !== "automatic")
+//         } else {
+//           return value ? value === camper[key] : true
+//         }
+//       })
+//     )
+// );
 
 export const selectCatalogItem = createSelector(
   [selectCatalog, selectCapmerId],

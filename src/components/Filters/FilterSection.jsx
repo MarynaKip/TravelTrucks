@@ -1,15 +1,31 @@
 // FilterSection.jsx
+import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Divider } from '@mui/material';
+import { addFeature, removeFeature, selectFeatures, changeBodyType } from '../../redux/filtersSlice';
 import FilterCard from './FilterCard';
 
 const FilterSection = ({ title, items }) => {
+  const dispatch = useDispatch();
+  const selectedFeatures = useSelector(selectFeatures);
+
+  const handleToggle = (label) => {
+    if(label === 'Van' || label === 'Fully Integrated' || label === 'Alcove') {
+      dispatch(changeBodyType(label))
+    } else {
+      if (selectedFeatures[label]) {
+        dispatch(removeFeature(label));
+      } else {
+        dispatch(addFeature(label));
+      }
+    }
+  };
   return (
     <Box>
       <Typography sx={{ color: '#101828', fontSize: 20, fontWeight: 600, mb: 1 }}>{title}</Typography>
       <Divider sx={{ my: 2, backgroundColor: '#DADDE1' }} />
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
         {items.map((item, i) => (
-          <FilterCard key={i} label={item.label} icon={item.icon}/>
+          <FilterCard key={i} label={item.label} icon={item.icon} onClick={() => handleToggle(item.label)} selected={selectedFeatures[`${item.label}`]}/>
         ))}
       </Box>
     </Box>

@@ -10,9 +10,6 @@ const filtersSlice = createSlice({
       'Kitchen': false,
       'Bathroom': false,
       'TV': false,
-      'Van': false,
-      'Fully Integrated': false,
-      'Alcove': false
     }
   },
   reducers: {
@@ -40,6 +37,7 @@ const filtersSlice = createSlice({
 export const { changeBodyType, changeLocation, addFeature, removeFeature } = filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;
 
+export const selectAllFilters = (state) => state.filters;
 export const selectLocationFilter = (state) => state.filters.location;
 export const selectBodyTypeFilter = (state) => state.filters.bodyType;
 export const selectFeatures = (state) => state.filters.features;

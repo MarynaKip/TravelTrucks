@@ -41,7 +41,7 @@ const CamperCard = ({ camper }) => {
               </Box>
             </Box>
           </Box>
-          <Typography sx={{ fontSize: 20, fontWeight: 600 }}>${price}</Typography>
+          <Typography sx={{ fontSize: 20, fontWeight: 600 }}>€{price}.00</Typography>
         </Box>
 
         {/* Description */}

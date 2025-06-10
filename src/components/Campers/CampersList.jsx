@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAll } from '../../redux/campersOps';
-import { selectFilteredCatalog } from '../../redux/catalogSlice';
+import { refreshFilteredItemsList, selectFilteredCatalog } from '../../redux/catalogSlice';
 import CamperCard from './CamperCard';
 import { Box, Button } from '@mui/material';
 
@@ -10,7 +10,11 @@ const CampersList = () => {
   const campers = useSelector(selectFilteredCatalog);
 
   useEffect(() => {
-    dispatch(fetchAll());
+    const runAsync = async () => {
+      await dispatch(fetchAll());
+      dispatch(refreshFilteredItemsList());
+    };
+    runAsync();
   }, [dispatch]);
 
   return (
