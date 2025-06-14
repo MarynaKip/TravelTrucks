@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import { fetchAll } from './redux/campersOps'
-import {refreshFilteredItemsList} from './redux/catalogSlice'
+import { fetchFiltered } from './redux/campersOps'
 import { Header } from './components/Header';
+import { selectAllFilters } from './redux/filters';
+import { selectPagination } from './redux/catalog';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const CatalogPage = lazy(() => import('./pages/CatalogPage'));
@@ -17,9 +18,12 @@ const CamperReviews = lazy(() => import('./components/Campers/CamperReviews'));
 export default function App() {
   const dispatch = useDispatch();
 
+  const filters = useSelector(selectAllFilters);
+  const pagination = useSelector(selectPagination);
+
+
   useEffect(() => {
-    dispatch(fetchAll());
-    dispatch(refreshFilteredItemsList());
+    dispatch(fetchFiltered({filters, pagination}));
   }, [dispatch]);
 
 

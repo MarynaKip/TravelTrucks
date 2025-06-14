@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {catalogReducer} from './catalogSlice';
-import {filtersReducer} from './filtersSlice';
+import {catalogReducer} from './catalog/catalogSlice';
+import {filtersReducer} from './filters/filtersSlice';
 import {favoritesReducer} from './favoritesSlice';
 
 export const store = configureStore(

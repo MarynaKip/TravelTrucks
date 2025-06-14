@@ -16,7 +16,7 @@ const filtersSlice = createSlice({
     changeBodyType(state, action) {
       return {
         ...state,
-        bodyType: action.payload,
+        bodyType: state.bodyType === action.payload ? '' : action.payload,
       };
     },
     changeLocation(state, action) {
@@ -34,11 +34,11 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { changeBodyType, changeLocation, addFeature, removeFeature } = filtersSlice.actions;
+export const {
+  changeBodyType,
+  changeLocation,
+  addFeature,
+  removeFeature
+} = filtersSlice.actions;
+
 export const filtersReducer = filtersSlice.reducer;
-
-export const selectAllFilters = (state) => state.filters;
-export const selectLocationFilter = (state) => state.filters.location;
-export const selectBodyTypeFilter = (state) => state.filters.bodyType;
-export const selectFeatures = (state) => state.filters.features;
-

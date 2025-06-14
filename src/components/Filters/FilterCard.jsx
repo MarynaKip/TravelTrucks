@@ -1,4 +1,3 @@
-// FilterCard.jsx
 import { Box, Typography } from '@mui/material';
 import sprite from '../../assets/sprite.svg';
 

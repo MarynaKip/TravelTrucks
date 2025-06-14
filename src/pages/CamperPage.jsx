@@ -4,23 +4,26 @@ import { useParams } from 'react-router-dom';
 import {
   Box, Typography, Stack, Divider, Tabs, Tab
 } from '@mui/material';
-import { changeSelectedCamperId, selectCatalogItem, selectLoading } from '../redux/catalogSlice';
+import { changeSelectedCamperId } from '../redux/catalog/catalogSlice';
+import { selectSelectedItem, selectLoading } from '../redux/catalog/catalogSelectors';
 import CamperFeatures from '../components/Campers/CamperFeatures';
 import CamperReviews from '../components/Campers/CamperReviews';
 import BookingForm from '../components/Campers/BookingForm';
 import sprite from '../assets/sprite.svg';
+import { getById } from '../redux/campersOps';
 
 const CamperPage = () => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState(0);
   const handleChange = (event, newValue) => setTab(newValue);
 
-  const camper = useSelector(selectCatalogItem);
+  const camper = useSelector(selectSelectedItem);
   const loading = useSelector(selectLoading);
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(changeSelectedCamperId(id));
+    dispatch(getById(id))
   }, [dispatch, id]);
 
   if (loading) return <Typography>Loading catalog...</Typography>;

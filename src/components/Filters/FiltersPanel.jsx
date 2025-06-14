@@ -2,14 +2,17 @@ import { Box, Typography, Button } from '@mui/material';
 import LocationInput from './LocationInput';
 import FilterSection from './FilterSection';
 import { useDispatch, useSelector } from 'react-redux';
-import {selectAllFilters} from '../../redux/filtersSlice';
-import {changeFilteredItemsList} from '../../redux/catalogSlice'
+import {selectAllFilters} from '../../redux/filters/filtersSelectors';
+import { fetchFiltered } from '../../redux/campersOps';
+import { selectPagination } from '../../redux/catalog';
 
 const FiltersPanel = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  
   const filters = useSelector(selectAllFilters);
+  const pagination = useSelector(selectPagination);
   const handleApplyFilters = () => {
-      dispatch(changeFilteredItemsList(filters));
+      dispatch(fetchFiltered({filters, pagination}));
   };
   return (
     <Box sx={{ width: 360 }}>

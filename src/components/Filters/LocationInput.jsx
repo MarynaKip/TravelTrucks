@@ -1,6 +1,7 @@
 import { Box, InputBase, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLocation, selectLocationFilter } from '../../redux/filtersSlice';
+import { changeLocation } from '../../redux/filters/filtersSlice';
+import { selectLocationFilter } from '../../redux/filters/filtersSelectors';
 import sprite from '../../assets/sprite.svg';
 
 const LocationInput = () => {

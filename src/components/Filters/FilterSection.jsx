@@ -1,12 +1,15 @@
 // FilterSection.jsx
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Divider } from '@mui/material';
-import { addFeature, removeFeature, selectFeatures, changeBodyType } from '../../redux/filtersSlice';
+import { addFeature, removeFeature, changeBodyType } from '../../redux/filters/filtersSlice';
+import { selectBodyTypeFilter, selectFeatures } from '../../redux/filters/filtersSelectors';
+
 import FilterCard from './FilterCard';
 
 const FilterSection = ({ title, items }) => {
   const dispatch = useDispatch();
   const selectedFeatures = useSelector(selectFeatures);
+  const selectedBodyType = useSelector(selectBodyTypeFilter)
 
   const handleToggle = (label) => {
     if(label === 'Van' || label === 'Fully Integrated' || label === 'Alcove') {
@@ -25,7 +28,7 @@ const FilterSection = ({ title, items }) => {
       <Divider sx={{ my: 2, backgroundColor: '#DADDE1' }} />
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
         {items.map((item, i) => (
-          <FilterCard key={i} label={item.label} icon={item.icon} onClick={() => handleToggle(item.label)} selected={selectedFeatures[`${item.label}`]}/>
+          <FilterCard key={i} label={item.label} icon={item.icon} onClick={() => handleToggle(item.label)} selected={selectedFeatures[`${item.label}`] || item.label === selectedBodyType}/>
         ))}
       </Box>
     </Box>

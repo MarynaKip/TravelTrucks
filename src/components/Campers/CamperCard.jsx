@@ -1,6 +1,6 @@
 import { Box, Typography, Rating, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { changeSelectedCamperId } from '../../redux/catalogSlice';
+import { changeSelectedCamperId } from '../../redux/catalog/catalogSlice';
 import { useNavigate } from 'react-router-dom';
 import CamperFeatureBadge from './CamperFeatureBadge';
 import sprite from '../../assets/sprite.svg';
@@ -41,7 +41,10 @@ const CamperCard = ({ camper }) => {
               </Box>
             </Box>
           </Box>
-          <Typography sx={{ fontSize: 20, fontWeight: 600 }}>€{price}.00</Typography>
+          <Box sx={{display: 'flex', gap: '15px'}}>
+            <Typography sx={{ fontSize: 20, fontWeight: 600 }}>€{price}.00</Typography>
+            <svg width="24" height="24"><use href={`${sprite}#icon-Like-default`} /></svg>
+          </Box>
         </Box>
 
         {/* Description */}
@@ -55,7 +58,6 @@ const CamperCard = ({ camper }) => {
 
         {/* Features */}
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2 }}>
-          {/* <CamperFeatureBadge icon="users" label={`${details.adults} adults`} /> */}
           <CamperFeatureBadge icon="fuel-pump" label={capitalizeFirstLetter(engine)} />
           <CamperFeatureBadge icon="diagram" label={capitalizeFirstLetter(transmission)} />
           {kitchen && <CamperFeatureBadge icon="cup-hot" label="Kitchen" />}
