@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { fetchFiltered } from './redux/campersOps'
 import { Header } from './components/Header';
 import { selectAllFilters } from './redux/filters';
@@ -35,6 +37,7 @@ export default function App() {
           <Route path="/catalog/:id" element={<CamperPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <ToastContainer position="top-right" autoClose={3000} />
       </Suspense>
     </>
   );
