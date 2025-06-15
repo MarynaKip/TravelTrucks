@@ -1,12 +1,55 @@
-# React + Vite
+# TravelTrucks - Camper Rental Frontend App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TravelTrucks — це веб-додаток для оренди кемперів, який реалізовано як SPA (Single Page Application) з використанням React, Redux, React Router і MUI. Додаток дозволяє переглядати кемпери, фільтрувати їх за параметрами, переглядати деталі, переглядати відгуки та бронювати транспорт.
 
-Currently, two official plugins are available:
+## 🔗 Демо
+[Відкрити на Vercel](https://travel-trucks-inky-mu.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Стек технологій
 
-## Expanding the ESLint configuration
+- **React + Vite** — фронтенд фреймворк та білдер
+- **Redux Toolkit** — глобальний стан
+- **React Router** — маршрутизація
+- **Axios** — HTTP-запити
+- **MUI (Material UI)** — компонентна бібліотека для стилізації
+- **Vercel** — деплой
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📁 Структура сторінок
+
+- `/` — Домашня сторінка з банером та кнопкою "View Now"
+- `/catalog` — Сторінка каталогу кемперів з можливістю фільтрації, додавання до обраного та довантаження
+- `/catalog/:id` — Сторінка окремого кемпера з галереєю, характеристиками, відгуками та формою бронювання
+
+## 🔍 Основні функції
+
+- 🔎 **Фільтрація кемперів** за:
+  - Локацією (текстовий інпут)
+  - Типом кузова (radio)
+  - Наявністю кухні, кондиціонера, душу тощо (чекбокси)
+
+- ❤️ **Обрані кемпери**:
+  - Додавання/видалення зі списку
+
+- 💬 **Відгуки**:
+  - П’ятизіркова шкала
+  - Список відгуків на сторінці кемпера
+
+- 📸 **Галерея зображень** та специфікації: передаються з API
+
+- 📦 **Довантаження карток**:
+  - Кнопка "Load More" підвантажує наступну сторінку з урахуванням фільтрів
+
+## 🔗 API
+
+Використовується публічний mock API:  
+`https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers`
+
+- `GET /campers` — отримання списку
+- `GET /campers/:id` — деталі кемпера
+
+## 🛠️ Запуск проєкту локально
+
+1. Клонуйте репозиторій:
+```bash
+git clone https://github.com/MarynaKip/TravelTrucks.git
+cd travel-trucks

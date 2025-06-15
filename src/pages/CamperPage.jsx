@@ -84,14 +84,10 @@ const CamperPage = () => {
       {/* Flexbox layout for bottom content */}
       <Box mt={4} display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={4}>
         {/* Left side: Tab Content */}
-        {/* <Box flex={1} width={631}> */}
           {tab === 0 ? <CamperFeatures camper={camper} /> : <CamperReviews reviews={reviews} />}
-        {/* </Box> */}
 
         {/* Right side: Booking Form */}
-        {/* <Box width={{ xs: '100%', md: 360 }}> */}
           <BookingForm />
-        {/* </Box> */}
       </Box>
     </Box>
   );

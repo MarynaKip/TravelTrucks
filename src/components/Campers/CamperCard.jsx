@@ -1,5 +1,7 @@
 import { Box, Typography, Rating, Button, ListItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { addFavorite, deleteFavorite, selectFavoritesIds } from '../../redux/favoritesSlice';
 import { changeSelectedCamperId } from '../../redux/catalog/catalogSlice';
 import { useNavigate } from 'react-router-dom';
 import CamperFeatureBadge from './CamperFeatureBadge';
@@ -13,6 +15,17 @@ const CamperCard = ({ camper }) => {
         id, name, price, rating, reviews, location,
         description, gallery, transmission, engine, kitchen, AC
     } = camper;
+
+    const favoritesIds = useSelector(selectFavoritesIds);
+    const isFavorite = favoritesIds.includes(id);
+
+    const handleFavoriteToggle = () => {
+      if (isFavorite) {
+        dispatch(deleteFavorite(id));
+      } else {
+        dispatch(addFavorite(id));
+      }
+    };
 
     const handleCamperClick = (id) => {
     dispatch(changeSelectedCamperId(id));
@@ -41,9 +54,16 @@ const CamperCard = ({ camper }) => {
               </Box>
             </Box>
           </Box>
-          <Box sx={{display: 'flex', gap: 2}}>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
             <Typography variant='h2'>€{price}.00</Typography>
-            <svg width="24" height="24"><use href={`${sprite}#icon-Like-default`} /></svg>
+            <svg
+              width="24"
+              height="24"
+              onClick={handleFavoriteToggle}
+              style={{ cursor: 'pointer' }}
+            >
+              <use href={`${sprite}${isFavorite ? '#icon-Like-pressed' : '#icon-Like-default'}`} />
+            </svg>
           </Box>
         </Box>
 

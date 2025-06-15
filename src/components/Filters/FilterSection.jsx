@@ -1,4 +1,3 @@
-// FilterSection.jsx
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography, Divider } from '@mui/material';
 import { addFeature, removeFeature, changeBodyType } from '../../redux/filters/filtersSlice';

@@ -1,5 +1,4 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { selectCatalog } from './catalog'
+import { createSlice } from '@reduxjs/toolkit';
 
 const favoritesSlice = createSlice({
   name: 'favorites',
@@ -8,10 +7,9 @@ const favoritesSlice = createSlice({
   },
   reducers: {
     addFavorite(state, action) {
-      return {
-        ...state,
-        favoritesIds: [...state.favoritesIds, action.payload],
-      };
+      if (!state.favoritesIds.includes(action.payload)) {
+        state.favoritesIds.push(action.payload);
+      }
     },
     deleteFavorite(state, action) {
         return {
@@ -22,16 +20,14 @@ const favoritesSlice = createSlice({
   },
 });
 
+export const {
+  addFavorite,
+  deleteFavorite
+} = favoritesSlice.actions;
+
 export const favoritesReducer = favoritesSlice.reducer;
 
 // Selectors
 
 export const selectFavoritesIds = (state) => state.favorites.favoritesIds;
 
-export const selectFavorites = createSelector(
-  [selectCatalog, selectFavoritesIds],
-  (catalog, ids) =>
-    catalog.filter(camper =>
-        ids.includes(camper.id)
-    )
-);
