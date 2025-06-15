@@ -11,5 +11,4 @@ const CamperFeatureBadge = ({ icon, label }) => {
     </Box>
   );
 };
-
 export default CamperFeatureBadge;
