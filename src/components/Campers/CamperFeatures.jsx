@@ -1,4 +1,4 @@
-import {Paper, Stack, Typography, Divider} from '@mui/material';
+import {Paper, Stack, Typography, Divider, Box, List, ListItem} from '@mui/material';
 import CamperFeatureBadge from './CamperFeatureBadge'
 
 export default function CamperFeatures({ camper }) {
@@ -32,26 +32,27 @@ export default function CamperFeatures({ camper }) {
     };
   
     return (
-      <Paper sx={{ p: 5, borderRadius: 2 }}>
-        <Stack direction="row" spacing={2} flexWrap="wrap" mb={10}>
+      <Paper sx={{ p: 5, borderRadius: 2, width: 631, boxSizing: 'border-box', backgroundColor: 'primary.light', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Stack direction="row" gap={1} flexWrap="wrap" >
           {features.map((f, index) => (
             <CamperFeatureBadge key={index} label={f.label} icon={f.icon} />
           ))}
         </Stack>
-  
-        <Typography variant="h5" color="primary" mb={3}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3}}>
+        <Typography variant="h3" color="text.primary">
           Vehicle Details
         </Typography>
-        <Divider sx={{ backgroundColor: '#DADDE1', mb: 3 }} />
+        <Divider/>
   
-        <Stack spacing={2}>
+        <List spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
           {Object.entries(details).map(([key, val]) => (
-            <Stack key={key} direction="row" justifyContent="space-between">
-              <Typography variant="body2" color="text.secondary">{key}</Typography>
-              <Typography variant="body2" color="primary">{val}</Typography>
-            </Stack>
+            <ListItem key={key} sx={{ display: 'flex', direction: "row", justifyContent: "space-between" }}>
+              <Typography variant="body2" color="text.primary">{key}</Typography>
+              <Typography variant="body2" color="text.primary">{val}</Typography>
+            </ListItem>
           ))}
-        </Stack>
+        </List>
+        </Box>
       </Paper>
     );
   };

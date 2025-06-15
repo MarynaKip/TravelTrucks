@@ -20,17 +20,17 @@ import {
     return (
       <Stack spacing={2}>
         <Stack direction="row" spacing={2} alignItems="center">
-          <Avatar sx={{ bgcolor: 'secondary.main', width: 60, height: 60 }}>
-            <Typography variant="h6" color="primary.contrastText">
+          <Avatar sx={{ bgcolor: 'secondary.light', width: 60, height: 60 }}>
+            <Typography variant="h2" color="primary">
               {reviewer_name.charAt(0)}
             </Typography>
           </Avatar>
           <Box>
-            <Typography variant="body2" color="primary">{reviewer_name}</Typography>
+            <Typography variant="body2" color="text.primary">{reviewer_name}</Typography>
             <Stack direction="row" spacing={0.5}>{stars}</Stack>
           </Box>
         </Stack>
-        <Typography variant="body1" color="text.primary">
+        <Typography variant="body1" color="text.secondary">
           {comment}
         </Typography>
       </Stack>

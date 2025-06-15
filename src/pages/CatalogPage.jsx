@@ -4,7 +4,7 @@ import CampersList from '../components/Campers/CampersList';
 
 const CatalogPage = () => {
   return (
-    <Box sx={{ display: 'flex', gap: 4, px: '64px' }}>
+    <Box sx={{ display: 'flex', gap: 8, padding: 6 }}>
       <FiltersPanel />
       <CampersList />
     </Box>

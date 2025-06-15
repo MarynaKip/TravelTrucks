@@ -1,4 +1,4 @@
-import { Box, Typography, Rating, Button } from '@mui/material';
+import { Box, Typography, Rating, Button, ListItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeSelectedCamperId } from '../../redux/catalog/catalogSlice';
 import { useNavigate } from 'react-router-dom';
@@ -20,55 +20,59 @@ const CamperCard = ({ camper }) => {
     };
 
   return (
-    <Box sx={{
-      display: 'flex', flexDirection: 'column',
+    <ListItem sx={{
       borderRadius: '20px', overflow: 'hidden',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+      border: '1px solid', borderColor: 'secondary.main',
+      padding: 3, width: '888px', gap: 3
     }}>
-      <Box component="img" src={gallery[0].thumb} alt={name} sx={{ width: '100%', height: 300, objectFit: 'cover' }} />
+      <Box component="img" src={gallery[0].thumb} alt={name} sx={{ width: 292, height: '100%', objectFit: 'cover', borderRadius: '10px'}} />
 
-      <Box sx={{ p: 3 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {/* Top: Name, Rating, Price */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Box>
-            <Typography sx={{ fontSize: 20, fontWeight: 600 }}>{name}</Typography>
+            <Typography variant='h2'>{name}</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Rating value={rating} readOnly precision={0.5} size="small" />
-              <Typography sx={{ fontSize: 14 }}>({reviews.length})</Typography>
+              <svg width="16" height="16"><use href={`${sprite}#icon-star-pressed`} /></svg>
+              <Typography variant='subtitle1' >{rating}({reviews.length} Reviews)</Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 2 }}>
                 <svg width="16" height="16"><use href={`${sprite}#icon-location`} /></svg>
-                <Typography sx={{ fontSize: 14 }}>{location}</Typography>
+                <Typography variant='body1'>{location}</Typography>
               </Box>
             </Box>
           </Box>
-          <Box sx={{display: 'flex', gap: '15px'}}>
-            <Typography sx={{ fontSize: 20, fontWeight: 600 }}>€{price}.00</Typography>
+          <Box sx={{display: 'flex', gap: 2}}>
+            <Typography variant='h2'>€{price}.00</Typography>
             <svg width="24" height="24"><use href={`${sprite}#icon-Like-default`} /></svg>
           </Box>
         </Box>
 
         {/* Description */}
-        <Typography sx={{
-          mt: 2, fontSize: 14, color: '#475467',
-          display: '-webkit-box', WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical', overflow: 'hidden'
+        <Typography 
+        variant='body1'
+        color='text.secondary'
+        sx={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          width: '500px',
         }}>
           {description}
         </Typography>
 
         {/* Features */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2 }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
           <CamperFeatureBadge icon="fuel-pump" label={capitalizeFirstLetter(engine)} />
           <CamperFeatureBadge icon="diagram" label={capitalizeFirstLetter(transmission)} />
           {kitchen && <CamperFeatureBadge icon="cup-hot" label="Kitchen" />}
           {AC && <CamperFeatureBadge icon="wind" label="AC" />}
         </Box>
 
-        <Button variant="contained" sx={{ mt: 3, borderRadius: '200px', textTransform: 'none' }} onClick={() => handleCamperClick(id)} >
+        <Button variant="contained" sx={{ borderRadius: '200px', width: 166, height: 56 }} onClick={() => handleCamperClick(id)} >
           Show more
         </Button>
       </Box>
-    </Box>
+    </ListItem>
   );
 };
 

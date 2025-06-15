@@ -19,11 +19,8 @@ export default function HomePage() {
         <Box sx={{ maxWidth: '600px' }}>
           <Typography
             variant="h1"
+            color='primary.light'
             sx={{
-              fontSize: '48px',
-              lineHeight: '32px',
-              fontWeight: 'bold',
-              color: '#F7F7F7',
               mb: 2,
             }}
           >
@@ -32,11 +29,8 @@ export default function HomePage() {
 
           <Typography
             variant="h2"
+            color='primary.light'
             sx={{
-              fontSize: '24px',
-              lineHeight: '32px',
-              fontWeight: 400,
-              color: '#F7F7F7',
               mb: 4,
             }}
           >
@@ -48,16 +42,16 @@ export default function HomePage() {
             to="/catalog"
             variant="contained"
             sx={{
-              width: '173px',
-              height: '56px',
-              backgroundColor: '#E44848',
+              width: 173,
+              height: 56,
+              backgroundColor: 'primary.main',
               color: '#FFFFFF',
-              fontSize: '16px',
-              lineHeight: '24px',
-              textTransform: 'none',
+              fontSize: 16,
+              lineHeight: 24,
               '&:hover': {
-                backgroundColor: '#D84343',
+                backgroundColor: 'secondary.dark',
               },
+              borderRadius: 200,
             }}
           >
             View Now

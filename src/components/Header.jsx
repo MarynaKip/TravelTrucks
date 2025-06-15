@@ -5,17 +5,14 @@ import Navigation from './Navigation';
 
 export const Header = () => {
   return (
-    <AppBar position="static" color="transparent" elevation={0} sx={{backgroundColor: '#F7F7F7'}}>
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
-        {/* Left side: Logo */}
-        <Box>
-          <IconButton edge="start" color="inherit">
-            <svg width="136" height="16">
-            <use href={`${sprite}#icon-logo`} />
-            </svg>
-          </IconButton>
-        </Box>
-
+    <AppBar position="static" color="transparent" elevation={0} sx={{backgroundColor: 'primary.light',  px: '64px' }}>
+      <Toolbar disableGutters sx={{ justifyContent: 'space-between'}}>
+              <svg
+                width="137.1"
+                height="22.85"
+                >
+                  <use href={`${sprite}#icon-logo`} />
+                </svg>
         {/* Center: Navigation Links */}
         <Box
           sx={{

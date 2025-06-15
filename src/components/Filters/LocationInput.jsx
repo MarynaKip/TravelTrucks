@@ -10,23 +10,23 @@ const LocationInput = () => {
 
   return (
     <Box>
-      <Typography sx={{ color: '#6C717B', fontSize: 16, mb: 1 }}>Location</Typography>
+      <Typography color='text.tertiary' variant='body1' sx={{ mb: 1 }}>Location</Typography>
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
           width: 360,
           height: 56,
-          bgcolor: '#F7F7F7',
+          bgcolor: 'primary.light',
           borderRadius: '12px',
-          px: 2,
+          px: 2.5,
         }}
       >
         <svg width="20" height="20">
           <use href={`${sprite}#icon-location`} />
         </svg>
         <InputBase
-          sx={{ ml: 1, flex: 1, color: '#101828' }}
+          sx={{ ml: 1, flex: 1, color: 'text.primary' }}
           placeholder="Enter location"
           value={location}
           onChange={(e) => dispatch(changeLocation(e.target.value))}

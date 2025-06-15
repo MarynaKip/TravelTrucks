@@ -12,11 +12,11 @@ const getNavLinkStyles = (isActive) => ({
 
 export default function Navigation() {
   return (
-    <Box sx={{ display: 'flex', gap: '10px' }}>
+    <Box sx={{ display: 'flex', gap: 4 }}>
       <NavLink to="/" style={({ isActive }) => getNavLinkStyles(isActive)}>
         Home
       </NavLink>
-      <NavLink to="/catalog" style={({ isActive }) => getNavLinkStyles(isActive)}>
+      <NavLink to="/catalog" end style={({ isActive }) => getNavLinkStyles(isActive)}>
         Catalog
       </NavLink>
     </Box>

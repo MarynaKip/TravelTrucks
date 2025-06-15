@@ -37,74 +37,61 @@ const CamperPage = () => {
   return (
     <Box px={8} py={4}>
       {/* Top Info */}
-      <Typography variant="h4" fontSize={24} lineHeight="32px" color="primary" mb={2}>
+      <Typography variant="h2" color="text.primary" mb={2}>
         {name}
       </Typography>
 
       <Stack direction="row" spacing={2} alignItems="center" mb={2}>
         <svg width="16" height="16"><use href={`${sprite}#icon-star-pressed`} /></svg>
-        <Typography variant="body1" color="primary">
+        <Typography variant="subtitle1" color="text.primary">
           {rating} ({reviews.length} Reviews)
         </Typography>
         <svg width="16" height="16"><use href={`${sprite}#icon-location`} /></svg>
-        <Typography variant="body1" color="primary">{location}</Typography>
+        <Typography variant="body1" color="text.primary">{location}</Typography>
       </Stack>
 
-      <Typography variant="h5" fontWeight={600} mb={2}>
+      <Typography variant="h2" mb={3.5}>
         €{price}.00
       </Typography>
 
-      <Stack direction="row" spacing={1} mb={2}>
+      <Stack direction="row" spacing={1} mb={3.5} justifyContent='space-between'>
         {gallery.map((img, i) => (
           <Box
             key={i}
             component="img"
             src={img.thumb}
             alt={`camper-${i}`}
-            width={80}
-            height={80}
+            width={292}
+            height={312}
             sx={{ objectFit: 'cover', borderRadius: 1 }}
           />
         ))}
       </Stack>
 
-      <Typography variant="body1" fontSize={16} lineHeight="24px" color="text.primary" mb={4}>
+      <Typography variant="body1" color="text.secondary" mb={7.5}>
         {description}
       </Typography>
 
       {/* Tabs and Content Area */}
       <Box>
-        <Tabs value={tab} onChange={handleChange} textColor="primary">
+        <Tabs value={tab} onChange={handleChange}>
           <Tab label="Features" />
           <Tab label="Reviews" />
         </Tabs>
-        <Divider sx={{ backgroundColor: '#DADDE1' }} />
-        <Box sx={{ position: 'relative', mt: -1 }}>
-          <Box
-            sx={{
-              width: 85,
-              height: 5,
-              bgcolor: '#E44848',
-              position: 'absolute',
-              bottom: 0,
-              left: tab === 0 ? 0 : 110,
-              transition: 'left 0.3s ease',
-            }}
-          />
-        </Box>
+        <Divider />
       </Box>
 
       {/* Flexbox layout for bottom content */}
       <Box mt={4} display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={4}>
         {/* Left side: Tab Content */}
-        <Box flex={1}>
+        {/* <Box flex={1} width={631}> */}
           {tab === 0 ? <CamperFeatures camper={camper} /> : <CamperReviews reviews={reviews} />}
-        </Box>
+        {/* </Box> */}
 
         {/* Right side: Booking Form */}
-        <Box width={{ xs: '100%', md: 360 }}>
+        {/* <Box width={{ xs: '100%', md: 360 }}> */}
           <BookingForm />
-        </Box>
+        {/* </Box> */}
       </Box>
     </Box>
   );
